@@ -69,11 +69,13 @@ class TestSecretCacheObject(unittest.TestCase):
 
         ttl = config.secret_refresh_interval
 
-        # New refresh time will use the ttl and will be less than the old refresh time that was artificially set a month ahead
-        # The new refresh time will be between now + ttl and now + (ttl / 2) if the secret was immediately refreshed
-        self.assertTrue(new_refresh_time < old_refresh_time and new_refresh_time < datetime.now(timezone.utc) + timedelta(ttl))
+        # New refresh time will use the ttl and will be less than the old refresh time
+        # that was artificially set a month ahead
+        # The new refresh time will be between now + ttl and now + (ttl / 2)
+        # if the secret was immediately refreshed
+        self.assertTrue(new_refresh_time < old_refresh_time
+                        and new_refresh_time < datetime.now(timezone.utc) + timedelta(ttl))
 
-        
     def test_datetime_fix_is_refresh_needed(self):
         secret_cached_object = TestSecretCacheObject.TestObject(SecretCacheConfig(), None, None)
 
